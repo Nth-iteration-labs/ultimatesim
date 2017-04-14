@@ -39,3 +39,12 @@ a = np.zeros(11)
 for i in range(a.size):
     a[i] = np.sum(sub[sub[:,2] == i][:,3])
     
+    
+            
+        # 0: Round
+        # 1: Agent ID
+        # 2: Who offered?
+        # 3: The offer 0-10
+        # 4: The response 0-1
+        # 5: The partner
+        # 6: The profit (= #3*#4)

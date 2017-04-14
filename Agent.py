@@ -31,12 +31,15 @@ class Agent:
         
     def makeOffer(self, partner):
         self.offerRounds += 1
+        #print("Offer from ",self.id, " to ", partner)
         offer = globals()[self.offer]().doOffer(self.data, partner)
         return(offer)
         
     
     def getResponse(self, offer, partner):
         self.responseRounds += 1
+        #print("Response from ",self.id, " to ", partner)
+        #print(self.data)
         response = globals()[self.response]().doResponse(offer, self.data, partner)
         return(response)
     
@@ -45,11 +48,18 @@ class Agent:
         if(response==1):
             self.profit += offer
             
+        # 0: Round
+        # 1: Agent ID
+        # 2: Did I offer 0-1
+        # 3: The offer 0-10
+        # 4: The response 0-1
+        # 5: The partner
+        # 6: The profit (= #3*#4)
         newrow = np.array([nround, self.id, offerer, offer, response, partner, self.profit], dtype=int)
         self.data = np.vstack([self.data, newrow])
         
-        print("The data for agent ", self.id, "is:")
-        print(self.data)
+        #print("The data for agent ", self.id, "is:")
+        #print(self.data)
     
     
     def getID(self):

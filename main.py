@@ -12,24 +12,25 @@ Library for running simulations of the ultimatum game
 from Simulation import Simulation
 from Population import Population
 import numpy as np
+np.set_printoptions(threshold=np.nan)
 
 
 
 # Settings:
-numberOfSims = 1
-simLength = 2
-populationSize = 10
-offerPolicies = np.array(["REMOffer"], dtype=str)
-responsePolicies = np.array(["REMResponse"], dtype=str)
+numberOfSims = 50
+simLength = 1000
+populationSize = 50
+offerPolicies = np.array(["THOMP1Offer"], dtype=str)
+responsePolicies = np.array(["THOMP1Response"], dtype=str)
 policyOccuranceMatrix = np.matrix([[1]])
 
 # Runt the simulations:
 simulation = Simulation(numberOfSims)
 simulation.Initialize(simLength, populationSize, offerPolicies, responsePolicies, policyOccuranceMatrix, storeall=True)
 simulation.Run(verbose=True, save=True)
-simulation.printData()
 
 # Get results of simulations
 simulation.plotAverageReward()
 simulation.plotAverageProfit()
+simulation.plotAverageResponse()
 

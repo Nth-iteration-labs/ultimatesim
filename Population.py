@@ -16,7 +16,7 @@ class Population:
         self.agentCount = agentCount
         self.agents = np.empty(agentCount, dtype=object)
         self.rounds = 0
-        self.data = np.empty([0,5], dtype=float)
+        self.data = np.empty([0,6], dtype=float)
         
 
     # Populate a poulation with repsonse trategies
@@ -49,18 +49,23 @@ class Population:
             responders = np.delete(np.r_[0:self.agentCount],select)
             np.random.shuffle(responders)
             
+            # Create some arrays for monitoring data
             offers = np.empty(offerers.size)
             profits = np.empty(offerers.size)
+            accepts = np.empty(offerers.size)
+            
+            # print("============ \nRound number: " ,n, "\n =============")
         
             for i in range(offerers.size):
                 # Get offer and response
                 offer = self.agents[offerers[i]].makeOffer(self.agents[responders[i]].getID())
                 response = self.agents[responders[i]].getResponse(offer, self.agents[offerers[i]].getID())
             
-                self.agents[offerers[i]].storeData(self.rounds, 0, offer, response, self.agents[responders[i]].getID())
-                self.agents[responders[i]].storeData(self.rounds, 1, offer, response, self.agents[offerers[i]].getID())
+                self.agents[offerers[i]].storeData(self.rounds, 1, offer, response, self.agents[responders[i]].getID())
+                self.agents[responders[i]].storeData(self.rounds, 0, offer, response, self.agents[offerers[i]].getID())
                 offers[i] = offer
                 profits[i] = (offer*response)
+                accepts[i] = response
             
             # Compute some stats and store
             # Variance is not correct!
@@ -69,7 +74,8 @@ class Population:
                                np.mean(offers), 
                                np.var(offers),
                                np.mean(profits),
-                               np.var(profits)],
+                               np.var(profits),
+                               np.mean(accepts)],
                                dtype=float)          
             self.data = np.vstack([self.data, newrow])
     

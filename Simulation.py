@@ -96,6 +96,22 @@ class Simulation:
             err[i] = v
         
         self.plotLines(x, y, err)
+    
+    def plotAverageResponse(self):
+        
+        x = np.arange(self.rounds)
+        y = np.empty(self.rounds, dtype=float)
+        #err = np.empty(self.rounds, dtype=float)
+        
+        for i in range(self.rounds):
+            m = 0
+            for j in range(self.nsims):
+                m += self.data[j][i,5]
+            m = m / self.nsims
+            y[i] = m
+        
+        pl.plot(x, y, 'k-')
+        pl.show()
         
     
     def plotLines(self, x, y, err):
