@@ -96,9 +96,9 @@ Running
 python main.py
 ``` 
 now produces (amongst others) the following plots:
-![Average offers](/examples/offers.png)
-![Average response](/examples/response.png)
-![Average profits](/images/profit.png)
+*![Average offers](/examples/offers.png)
+*![Average response](/examples/response.png)
+*![Average profits](/examples/profit.png)
 
 And from there on one can start experimenting with different policies, in
 different proportions, etc. etc.
