@@ -1,36 +1,53 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue Apr  4 09:08:17 2017
+Created first on Tue Apr  4 09:08:17 2017
 
 @author: Dr. M.C. Kaptein
 
-Library for running simulations of the ultimatum game
+A litlle software library for running simulations of the ultimatum game
 
 """
 
 # Imports
 from Simulation import Simulation
-from Population import Population
 import numpy as np
-np.set_printoptions(threshold=np.nan)
+#np.set_printoptions(threshold=np.nan)
+import config
+
+
+# Retrieve settings:
+numberOfSims = config.nSims
+simLength = config.simLength
+populationSize = config.popSize
+offerPolicies = config.offerPolicies
+responsePolicies = config.responsePolicies
+policyOccuranceMatrix = config.probMatrix
+
+# Print settings 
+print("Running a new simulation with the parameters:")
+print("Population size: "+str(populationSize))
+print("Number of simulations: "+str(numberOfSims))
+print("Number of rounds per simulation:"+str(simLength))
+print("And the following distribution over policies:")
+print(policyOccuranceMatrix)
+print("Columns:")
+print(offerPolicies)
+print("Rows:")
+print(responsePolicies)
 
 
 
-# Settings:
-numberOfSims = 50
-simLength = 1000
-populationSize = 50
-offerPolicies = np.array(["THOMP1Offer"], dtype=str)
-responsePolicies = np.array(["THOMP1Response"], dtype=str)
-policyOccuranceMatrix = np.matrix([[1]])
 
 # Runt the simulations:
-simulation = Simulation(numberOfSims)
-simulation.Initialize(simLength, populationSize, offerPolicies, responsePolicies, policyOccuranceMatrix, storeall=True)
+simulation = Simulation(numberOfSims, name="Test")
+simulation.Initialize(simLength, populationSize, offerPolicies, responsePolicies, policyOccuranceMatrix, storeall=False)
 simulation.Run(verbose=True, save=True)
 
 # Get results of simulations
-simulation.plotAverageReward()
+print("The average bid per round is:")
+simulation.plotAverageBid()
+print("The average profit per round is:")
 simulation.plotAverageProfit()
+print("The average response per round is:")
 simulation.plotAverageResponse()
 

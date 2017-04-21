@@ -29,7 +29,7 @@ class Simulation:
         self.offers = offers
         self.responses = responses
         self.probs=probs
-        print(probs)
+        #print(probs)
         if storeall:
             self.storeall = storeall
             self.populations = np.empty(self.nsims, dtype=object)
@@ -48,17 +48,25 @@ class Simulation:
             population.play(self.rounds)
             
             # Retain all populations in memory
-            if self.storeall:
-                self.populations[i] = population    
+            # Not yet implemented
+            #if self.storeall:
+                #self.populations[i] = population    
             
             self.data[i] = population.getData()
+            
+        if self.storeall:
+            name = "Sim_"+str(self.name)+"_r"+str(self.rounds)+"_p"+str(self.popSize) 
+            print("Storing data under name: "+name)
+            for i in range(self.nsims): 
+                np.savetxt("data/"+name+"("+str(i)+").csv", self.data[i], delimiter=",")
+                #print(self.data[i])
    
     
     def printData(self):
         print(self.data)
 
      
-    def plotAverageReward(self):
+    def plotAverageBid(self):
         
         x = np.arange(self.rounds)
         y = np.empty(self.rounds, dtype=float)
@@ -75,7 +83,7 @@ class Simulation:
             y[i] = m
             err[i] = v
         
-        self.plotLines(x, y, err)
+        self.plotLines(x, y, err, "Average offer per round")
        
         
     def plotAverageProfit(self):
@@ -95,7 +103,7 @@ class Simulation:
             y[i] = m
             err[i] = v
         
-        self.plotLines(x, y, err)
+        self.plotLines(x, y, err, "Average profit per round")
     
     def plotAverageResponse(self):
         
@@ -111,11 +119,13 @@ class Simulation:
             y[i] = m
         
         pl.plot(x, y, 'k-')
+        pl.title("Average response per round")
         pl.show()
         
     
-    def plotLines(self, x, y, err):
+    def plotLines(self, x, y, err, name="None"):
 
         pl.plot(x,y, 'k-')
+        pl.title(name)
         pl.fill_between(x, y+err, y-err)
         pl.show()
