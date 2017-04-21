@@ -23,7 +23,8 @@ class Population:
     def populate(self, offerPolicies, responsePolicies, probMatrix):
         
         # Check policy matrix
-        if(np.sum(probMatrix) != 1):
+        #if(np.sum(probMatrix) != 1):
+        if abs(np.sum(probMatrix) - 1) < 1e-30:
             raise ValueError('The sum of the probablity matrix should be 1')
             
         for i in range(0,self.agentCount):
@@ -64,7 +65,7 @@ class Population:
                 self.agents[offerers[i]].storeData(self.rounds, 1, offer, response, self.agents[responders[i]].getID())
                 self.agents[responders[i]].storeData(self.rounds, 0, offer, response, self.agents[offerers[i]].getID())
                 offers[i] = offer
-                profits[i] = (offer*response)
+                profits[i] = (10*response)
                 accepts[i] = response
             
             # Compute some stats and store

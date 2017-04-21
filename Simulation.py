@@ -119,6 +119,7 @@ class Simulation:
             y[i] = m
         
         pl.plot(x, y, 'k-')
+        pl.ylim([0,1])
         pl.title("Average response per round")
         pl.show()
         
@@ -127,5 +128,6 @@ class Simulation:
 
         pl.plot(x,y, 'k-')
         pl.title(name)
+        pl.ylim([0,10])
         pl.fill_between(x, y+err, y-err)
         pl.show()

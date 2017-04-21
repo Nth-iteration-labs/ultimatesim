@@ -36,8 +36,6 @@ print("Rows:")
 print(responsePolicies)
 
 
-
-
 # Runt the simulations:
 simulation = Simulation(numberOfSims, name="Test")
 simulation.Initialize(simLength, populationSize, offerPolicies, responsePolicies, policyOccuranceMatrix, storeall=False)
