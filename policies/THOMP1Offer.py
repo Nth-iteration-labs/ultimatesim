@@ -19,7 +19,7 @@ class THOMP1Offer(offerPolicy):
         max = 0
         choice = 0
         for i in range(a.size) :
-            draw = np.random.beta(a[i]+1, b[i]+1, 1)
+            draw = np.random.beta(a[i]+1, b[i]+1, 1) * i
             if draw > max:
                 max = draw
                 choice = i

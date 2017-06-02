@@ -8,9 +8,9 @@ class RANDOMResponse(responsePolicy):
         self.name = "RANDOM"
      
         
-    def doResponse(self, offer, data, partner):
+    def doResponse(self, offer, data, partner, prob=.5):
 
-        return(int(np.random.binomial(1, .5, 1)))
+        return(int(np.random.binomial(1, prob, 1)))
         
 
     # -*- coding: utf-8 -*-

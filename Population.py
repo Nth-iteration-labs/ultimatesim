@@ -24,7 +24,7 @@ class Population:
         
         # Check policy matrix
         #if(np.sum(probMatrix) != 1):
-        if abs(np.sum(probMatrix) - 1) < 1e-30:
+        if abs(np.sum(probMatrix) - 1) > 1e-10:
             raise ValueError('The sum of the probablity matrix should be 1')
             
         for i in range(0,self.agentCount):
